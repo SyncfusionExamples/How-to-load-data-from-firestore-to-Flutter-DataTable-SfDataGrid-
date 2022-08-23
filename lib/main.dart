@@ -13,13 +13,14 @@ Future<void> main() async {
       home: const SfDataGridDemo()));
 }
 
+//add your FirebaseOptions details
 const defaultFirebaseOptions = FirebaseOptions(
-  apiKey: 'AIzaSyBWRAAgMpfnnjmqOSXmtU3y0VfTqFcH2ZY',
-  authDomain: 'employeedatagrid.firebaseapp.com',
-  projectId: 'employeedatagrid',
-  storageBucket: 'employeedatagrid.appspot.com',
-  messagingSenderId: '485159817284',
-  appId: '1:485159817284:web:850510557f1164getDataFromFireStoref52c11',
+  apiKey: '',
+  authDomain: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
+  appId: '',
 );
 
 class SfDataGridDemo extends StatefulWidget {
