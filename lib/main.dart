@@ -1,37 +1,27 @@
-# How-to-load-data-from-firestore-to-Flutter-DataTable-SfDataGrid-
-
-Load data from the [Firestore](https://firebase.google.com/docs/firestore) to the [Flutter DataGrid](https://www.syncfusion.com/flutter-widgets/flutter-datagrid) widget by fetching the data with the required collection name from Firestore. Then, create the rows for the DataGrid from document data.
-
-The following steps explain how to load the data from the Firestore database for Flutter DataGrid:
-
-## STEP 1:
-To get started with Firestore, refer to this [link](https://firebase.google.com/docs/firestore) and create the database in Firestore. In this KB, we have explained using the Firestore data as an example. We will not provide Firebase access files and a key. 
-
-## STEP 2: 
-To fetch the data from the Firestore, you need to add the following package in the dependencies of pubspec.yaml.
-
-```dart
-dependencies:
-  flutter:
-    sdk: flutter
-  firebase_core: ^1.20.1
-  cloud_firestore: ^3.4.4
-
-```
-
-## STEP 3: 
-Import the following library into the flutter application:
-
-```dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-```
-## STEP 4: 
-Initialize the [SfDataGrid](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/SfDataGrid-class.html) with all the required details. Fetch the data from the Firestore database by passing the required collection name.  In the following sample, we have shown how to perform CRUD operations from the Firestore. If you add the new document to the collection or update/delete the existing document in that collection, we have done the respective operations in the DataGrid based on the DocumentChangeType(added/ removed/ modified) in the document. 
+import 'employee.dart';
 
-```dart
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: defaultFirebaseOptions);
+  runApp(MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const SfDataGridDemo()));
+}
+
+const defaultFirebaseOptions = FirebaseOptions(
+  apiKey: 'AIzaSyBWRAAgMpfnnjmqOSXmtU3y0VfTqFcH2ZY',
+  authDomain: 'employeedatagrid.firebaseapp.com',
+  projectId: 'employeedatagrid',
+  storageBucket: 'employeedatagrid.appspot.com',
+  messagingSenderId: '485159817284',
+  appId: '1:485159817284:web:850510557f1164getDataFromFireStoref52c11',
+);
+
 class SfDataGridDemo extends StatefulWidget {
   const SfDataGridDemo({Key? key}) : super(key: key);
 
@@ -43,15 +33,15 @@ class SfDataGridDemoState extends State<SfDataGridDemo> {
   late EmployeeDataSource employeeDataSource;
   List<Employee> employeeData = [];
 
-  final getData = FirebaseFirestore.instance.collection('Employee').snapshots();
+  final getDataFromFireStore =
+      FirebaseFirestore.instance.collection('Employee').snapshots();
 
   Widget _buildDataGrid() {
     return StreamBuilder(
-      stream: getData,
+      stream: getDataFromFireStore,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasData) {
           if (employeeData.isNotEmpty) {
-            
             // to update the value changed at runtime
             getDataGridRowFromDataBase(DocumentChange<Object?> data) {
               return DataGridRow(cells: [
@@ -105,6 +95,7 @@ class SfDataGridDemoState extends State<SfDataGridDemo> {
       },
     );
   }
+
   @override
   void initState() {
     super.initState();
@@ -121,12 +112,6 @@ class SfDataGridDemoState extends State<SfDataGridDemo> {
   }
 }
 
-```
-
-## STEP 5: 
-Create a data source class that extends with the [DataGridSource](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/DataGridSource-class.html) for mapping data to the [SfDataGrid](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/SfDataGrid-class.html).
-
-```dart
 class EmployeeDataSource extends DataGridSource {
   EmployeeDataSource(this.employeeData) {
     _buildDataRow();
@@ -169,4 +154,36 @@ class EmployeeDataSource extends DataGridSource {
   }
 }
 
-```
+List<GridColumn> get getColumns {
+  return <GridColumn>[
+    GridColumn(
+        columnName: 'id',
+        label: Container(
+            padding: const EdgeInsets.all(16.0),
+            alignment: Alignment.center,
+            child: const Text(
+              'ID',
+            ))),
+    GridColumn(
+        columnName: 'name',
+        label: Container(
+            padding: const EdgeInsets.all(8.0),
+            alignment: Alignment.center,
+            child: const Text('Name'))),
+    GridColumn(
+        columnName: 'designation',
+        label: Container(
+            padding: const EdgeInsets.all(8.0),
+            alignment: Alignment.center,
+            child: const Text(
+              'Designation',
+              overflow: TextOverflow.ellipsis,
+            ))),
+    GridColumn(
+        columnName: 'salary',
+        label: Container(
+            padding: const EdgeInsets.all(8.0),
+            alignment: Alignment.center,
+            child: const Text('Salary'))),
+  ];
+}

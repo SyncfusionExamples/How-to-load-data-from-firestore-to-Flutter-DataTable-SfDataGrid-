@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "485159817284",
+    "project_id": "employeedatagrid",
+    "storage_bucket": "employeedatagrid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485159817284:android:864a525dc882fbb1f52c11",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485159817284-g82jbdd8lfbse2j0roi0pbhd4j87jod0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYsDkQIHmuMNO4wqrhIP5RC75w6sVrrfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485159817284-g82jbdd8lfbse2j0roi0pbhd4j87jod0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
